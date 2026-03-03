@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request, Query } from '@nestjs/common';
 import { ShipmentsService } from './shipments.service';
 import { DashboardService } from './dashboard.service';
 import { CreateShipmentDto, UpdateShipmentDto, AddShipmentPackerDto } from './dto/shipment.dto';
@@ -17,8 +17,14 @@ export class ShipmentsController {
 
   @Get('dashboard')
   @ApiOperation({ summary: 'Get dashboard statistics' })
-  getDashboard(@Request() req: { user: { companyIds: string[] } }) {
-    return this.dashboardService.getStats(req.user.companyIds);
+  getDashboard(
+    @Request() req: { user: { companyIds: string[] } },
+    @Query('dateFrom') dateFrom?: string,
+    @Query('dateTo')   dateTo?: string,
+  ) {
+    const from = dateFrom ? new Date(dateFrom) : undefined;
+    const to   = dateTo   ? new Date(dateTo)   : undefined;
+    return this.dashboardService.getStats(req.user.companyIds, from, to);
   }
 
   @Post()
