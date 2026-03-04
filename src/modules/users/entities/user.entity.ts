@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinTable } from 'typeorm';
-import { Company } from '@/modules/companies/entities/company.entity';
+import { Company } from '../../../modules/companies/entities/company.entity';
 
 export enum UserRole {
   ADMIN = 'admin',

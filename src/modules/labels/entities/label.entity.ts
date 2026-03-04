@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
-import { Shipment } from '@/modules/shipments/entities/shipment.entity';
-import { User } from '@/modules/users/entities/user.entity';
+import { Shipment } from '../../../modules/shipments/entities/shipment.entity';
+import { User } from '../../../modules/users/entities/user.entity';
 
 @Entity('package_labels')
 export class PackageLabel {

@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PackageLabel } from './entities/label.entity';
-import { Shipment } from '@/modules/shipments/entities/shipment.entity';
+import { Shipment } from '../../modules/shipments/entities/shipment.entity';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface GenerateLabelDto {

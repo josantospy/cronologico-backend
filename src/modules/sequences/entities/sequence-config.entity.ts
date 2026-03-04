@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
-import { Company } from '@/modules/companies/entities/company.entity';
+import { Company } from '../../../modules/companies/entities/company.entity';
 
 export enum ResetPeriod {
   NONE = 'ninguno',

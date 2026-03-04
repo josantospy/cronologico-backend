@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request, 
 import { ShipmentsService } from './shipments.service';
 import { DashboardService } from './dashboard.service';
 import { CreateShipmentDto, UpdateShipmentDto, AddShipmentPackerDto } from './dto/shipment.dto';
-import { JwtAuthGuard } from '@/common/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 
 @ApiTags('shipments')

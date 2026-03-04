@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Between, MoreThanOrEqual, LessThanOrEqual, In } from 'typeorm';
-import { Shipment, ShipmentStatus } from '@/modules/shipments/entities/shipment.entity';
-import { ShipmentPacker } from '@/modules/shipments/entities/shipment-packer.entity';
+import { Shipment, ShipmentStatus } from '../../modules/shipments/entities/shipment.entity';
+import { ShipmentPacker } from '../../modules/shipments/entities/shipment-packer.entity';
 
 export interface PackerStat {
   empacadorId: string;

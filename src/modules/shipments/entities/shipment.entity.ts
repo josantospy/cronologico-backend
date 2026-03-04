@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
-import { Company } from '@/modules/companies/entities/company.entity';
-import { User } from '@/modules/users/entities/user.entity';
-import { Client } from '@/modules/clients/entities/client.entity';
-import { Carrier } from '@/modules/carriers/entities/carrier.entity';
+import { Company } from '../../../modules/companies/entities/company.entity';
+import { User } from '../../../modules/users/entities/user.entity';
+import { Client } from '../../../modules/clients/entities/client.entity';
+import { Carrier } from '../../../modules/carriers/entities/carrier.entity';
 import { ShipmentPacker } from './shipment-packer.entity';
 
 export enum ShipmentStatus {

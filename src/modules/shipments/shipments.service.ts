@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In } from 'typeorm';
 import { Shipment, ShipmentStatus } from './entities/shipment.entity';
 import { ShipmentPacker } from './entities/shipment-packer.entity';
-import { SequencesService } from '@/modules/sequences/sequences.service';
+import { SequencesService } from '../../modules/sequences/sequences.service';
 import { CreateShipmentDto, UpdateShipmentDto, AddShipmentPackerDto } from './dto/shipment.dto';
 
 @Injectable()

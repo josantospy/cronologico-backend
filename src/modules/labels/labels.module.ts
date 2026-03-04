@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PackageLabel } from './entities/label.entity';
-import { Shipment } from '@/modules/shipments/entities/shipment.entity';
+import { Shipment } from '../../modules/shipments/entities/shipment.entity';
 import { LabelsService } from './labels.service';
 import { LabelsController } from './labels.controller';
 

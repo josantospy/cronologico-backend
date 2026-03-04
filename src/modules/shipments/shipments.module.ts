@@ -5,7 +5,7 @@ import { ShipmentPacker } from './entities/shipment-packer.entity';
 import { ShipmentsService } from './shipments.service';
 import { DashboardService } from './dashboard.service';
 import { ShipmentsController } from './shipments.controller';
-import { SequencesModule } from '@/modules/sequences/sequences.module';
+import { SequencesModule } from '../../modules/sequences/sequences.module';
 
 @Module({
   imports: [

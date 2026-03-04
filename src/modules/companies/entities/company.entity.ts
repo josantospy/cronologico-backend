@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToMany } from 'typeorm';
-import { User } from '@/modules/users/entities/user.entity';
-import { Client } from '@/modules/clients/entities/client.entity';
-import { Carrier } from '@/modules/carriers/entities/carrier.entity';
-import { Shipment } from '@/modules/shipments/entities/shipment.entity';
+import { User } from '../../../modules/users/entities/user.entity';
+import { Client } from '../../../modules/clients/entities/client.entity';
+import { Carrier } from '../../../modules/carriers/entities/carrier.entity';
+import { Shipment } from '../../../modules/shipments/entities/shipment.entity';
 
 @Entity('companies')
 export class Company {
