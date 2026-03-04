@@ -6,7 +6,6 @@ import { Carrier } from '../../../modules/carriers/entities/carrier.entity';
 import { ShipmentPacker } from './shipment-packer.entity';
 
 export enum ShipmentStatus {
-  DRAFT = 'borrador',
   IN_PROGRESS = 'en_proceso',
   DISPATCHED = 'despachado',
   COMPLETED = 'completado',

@@ -33,7 +33,7 @@ export class ShipmentsService {
       cantidadPaquetesTotal: totalPaquetes,
       fragil: createDto.fragil || false,
       comentariosGenerales: createDto.comentariosGenerales,
-      estado: ShipmentStatus.DRAFT,
+      estado: ShipmentStatus.IN_PROGRESS,
     });
 
     const savedShipment = await this.shipmentRepo.save(shipment) as Shipment;

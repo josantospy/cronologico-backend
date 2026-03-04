@@ -40,7 +40,7 @@ async function seed() {
      VALUES ($1,$2,$3,$4,$5,$6,NOW(),true)`,
     [
       companyId,
-      'Cronológicos Express S.R.L.',
+      'CronoLogistic S.R.L.',
       '1-31-56789-2',
       'Av. John F. Kennedy No. 45, Ensanche La Fe, Santo Domingo',
       '809-562-4400',
@@ -199,10 +199,10 @@ async function seed() {
     // ── Marzo 2026 (2 en_proceso + 4 borrador) ──
     { ago: 8, client:clientClinica,   carrier:carrier1Id, seq:null, pkgs:20, status:'en_proceso', fragil:true,  packers:[[carlosId,12],[robertoId,8]],  facturas:'B02-0001-00000178' },
     { ago: 6, client:clientDist,      carrier:carrier2Id, seq:null, pkgs:13, status:'en_proceso', fragil:false, packers:[[mariaId,13]],                 facturas:'B01-0002-00000185' },
-    { ago: 5, client:clientFarmacia,  carrier:null,       seq:null, pkgs: 9, status:'borrador',   fragil:false, packers:[[carlosId,9]],                 facturas:null },
-    { ago: 4, client:clientSuper,     carrier:null,       seq:null, pkgs:26, status:'borrador',   fragil:true,  packers:[[carlosId,16],[robertoId,10]], facturas:null },
-    { ago: 2, client:clientRepuestos, carrier:null,       seq:null, pkgs: 5, status:'borrador',   fragil:false, packers:[[mariaId,5]],                  facturas:null },
-    { ago: 1, client:clientClinica,   carrier:null,       seq:null, pkgs:30, status:'borrador',   fragil:false, packers:[[carlosId,18],[mariaId,12]],   facturas:null },
+    { ago: 5, client:clientFarmacia,  carrier:null,       seq:null, pkgs: 9, status:'en_proceso',   fragil:false, packers:[[carlosId,9]],                 facturas:null },
+    { ago: 4, client:clientSuper,     carrier:null,       seq:null, pkgs:26, status:'en_proceso',   fragil:true,  packers:[[carlosId,16],[robertoId,10]], facturas:null },
+    { ago: 2, client:clientRepuestos, carrier:null,       seq:null, pkgs: 5, status:'en_proceso',   fragil:false, packers:[[mariaId,5]],                  facturas:null },
+    { ago: 1, client:clientClinica,   carrier:null,       seq:null, pkgs:30, status:'en_proceso',   fragil:false, packers:[[carlosId,18],[mariaId,12]],   facturas:null },
   ];
 
   for (const s of shipments) {
