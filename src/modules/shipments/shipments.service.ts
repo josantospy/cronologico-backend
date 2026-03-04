@@ -61,7 +61,7 @@ export class ShipmentsService {
   async findOne(id: string): Promise<Shipment> {
     const shipment = await this.shipmentRepo.findOne({
       where: { id },
-      relations: ['company', 'client', 'carrier', 'creatorUser', 'packers', 'packers.empacador'],
+      relations: ['company', 'client', 'client.addresses', 'client.addresses.carrier', 'carrier', 'creatorUser', 'packers', 'packers.empacador'],
     });
 
     if (!shipment) {

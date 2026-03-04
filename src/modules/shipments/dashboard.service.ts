@@ -11,6 +11,14 @@ export interface PackerStat {
   totalEnvios: number;
 }
 
+export interface CarrierStat {
+  carrierId: string;
+  nombre: string;
+  patente: string | null;
+  totalEnvios: number;
+  totalPaquetes: number;
+}
+
 export interface DashboardStats {
   totalShipments: number;
   shipmentsToday: number;
@@ -24,6 +32,7 @@ export interface DashboardStats {
   shipmentsByStatus: { status: string; count: number }[];
   shipmentsByMonth: { month: string; count: number }[];
   packerStats: PackerStat[];
+  carrierStats: CarrierStat[];
 }
 
 @Injectable()
@@ -56,7 +65,7 @@ export class DashboardService {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const allShipments = await this.shipmentRepo.find({ where: baseWhere });
+    const allShipments = await this.shipmentRepo.find({ where: baseWhere, relations: ['carrier'] });
     const todayShipments = allShipments.filter(s => new Date(s.createdAt) >= today);
 
     const weekAgo = new Date(today);
@@ -86,6 +95,7 @@ export class DashboardService {
       ],
       shipmentsByMonth: this.monthlyStats(allShipments),
       packerStats,
+      carrierStats: this.buildCarrierStats(allShipments),
     };
   }
 
@@ -115,6 +125,27 @@ export class DashboardService {
 
     return Array.from(map.values())
       .sort((a, b) => b.cantidadPaquetes - a.cantidadPaquetes);
+  }
+
+  private buildCarrierStats(shipments: Shipment[]): CarrierStat[] {
+    const map = new Map<string, CarrierStat>();
+    for (const s of shipments) {
+      if (!s.carrierId || !s.carrier) continue;
+      const entry = map.get(s.carrierId);
+      if (entry) {
+        entry.totalEnvios++;
+        entry.totalPaquetes += s.cantidadPaquetesTotal;
+      } else {
+        map.set(s.carrierId, {
+          carrierId:     s.carrierId,
+          nombre:        s.carrier.nombre,
+          patente:       s.carrier.patente ?? null,
+          totalEnvios:   1,
+          totalPaquetes: s.cantidadPaquetesTotal,
+        });
+      }
+    }
+    return Array.from(map.values()).sort((a, b) => b.totalPaquetes - a.totalPaquetes);
   }
 
   private monthlyStats(shipments: Shipment[]): { month: string; count: number }[] {

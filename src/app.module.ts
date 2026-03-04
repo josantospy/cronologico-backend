@@ -13,6 +13,7 @@ import { SequencesModule } from './modules/sequences/sequences.module';
 import { Company } from './modules/companies/entities/company.entity';
 import { User } from './modules/users/entities/user.entity';
 import { Client } from './modules/clients/entities/client.entity';
+import { ClientAddress } from './modules/clients/entities/client-address.entity';
 import { Carrier } from './modules/carriers/entities/carrier.entity';
 import { Shipment } from './modules/shipments/entities/shipment.entity';
 import { ShipmentPacker } from './modules/shipments/entities/shipment-packer.entity';
@@ -39,6 +40,7 @@ import { SequenceConfig } from './modules/sequences/entities/sequence-config.ent
           Company,
           User,
           Client,
+          ClientAddress,
           Carrier,
           Shipment,
           ShipmentPacker,

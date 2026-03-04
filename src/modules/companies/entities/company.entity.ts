@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany, OneToMany } from 'typeorm';
 import { User } from '../../../modules/users/entities/user.entity';
 import { Client } from '../../../modules/clients/entities/client.entity';
 import { Carrier } from '../../../modules/carriers/entities/carrier.entity';
@@ -39,7 +39,7 @@ export class Company {
   @ManyToMany(() => User, (user) => user.companies)
   users: User[];
 
-  @OneToMany(() => Client, (client) => client.company)
+  @ManyToMany(() => Client, (client) => client.companies)
   clients: Client[];
 
   @ManyToMany(() => Carrier, (carrier) => carrier.companies)

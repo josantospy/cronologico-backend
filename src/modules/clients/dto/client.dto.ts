@@ -1,10 +1,11 @@
-import { IsString, IsOptional, IsUUID, MaxLength } from 'class-validator';
+import { IsString, IsOptional, IsUUID, IsArray, MaxLength, IsBoolean } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateClientDto {
-  @ApiProperty({ description: 'UUID de la empresa' })
-  @IsUUID()
-  companyId: string;
+  @ApiProperty({ description: 'UUIDs de las empresas', type: [String] })
+  @IsArray()
+  @IsUUID('all', { each: true })
+  companyIds: string[];
 
   @ApiProperty({ example: 'Juan Perez' })
   @IsString()
@@ -17,17 +18,11 @@ export class CreateClientDto {
   @MaxLength(100)
   email?: string;
 
-  @ApiPropertyOptional({ example: '+56 9 1234 5678' })
+  @ApiPropertyOptional({ example: '+1 809 123 4567' })
   @IsOptional()
   @IsString()
   @MaxLength(50)
   telefono?: string;
-
-  @ApiPropertyOptional({ example: 'Av. Las Condes 123' })
-  @IsOptional()
-  @IsString()
-  @MaxLength(300)
-  direccion?: string;
 
   @ApiPropertyOptional({ example: 'RUT' })
   @IsOptional()
@@ -43,6 +38,12 @@ export class CreateClientDto {
 }
 
 export class UpdateClientDto {
+  @ApiPropertyOptional({ type: [String] })
+  @IsOptional()
+  @IsArray()
+  @IsUUID('all', { each: true })
+  companyIds?: string[];
+
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
@@ -64,12 +65,6 @@ export class UpdateClientDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
-  @MaxLength(300)
-  direccion?: string;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsString()
   @MaxLength(20)
   tipoDocumento?: string;
 
@@ -78,4 +73,74 @@ export class UpdateClientDto {
   @IsString()
   @MaxLength(50)
   numeroDocumento?: string;
+}
+
+export class CreateClientAddressDto {
+  @ApiProperty({ example: 'Sede Central' })
+  @IsString()
+  @MaxLength(100)
+  alias: string;
+
+  @ApiProperty({ example: 'Av. 27 de Febrero 123' })
+  @IsString()
+  @MaxLength(300)
+  direccion: string;
+
+  @ApiPropertyOptional({ example: 'Santo Domingo' })
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  ciudad?: string;
+
+  @ApiPropertyOptional({ example: '+1 809 555 0000' })
+  @IsOptional()
+  @IsString()
+  @MaxLength(50)
+  telefono?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsUUID()
+  carrierId?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsBoolean()
+  predeterminado?: boolean;
+}
+
+export class UpdateClientAddressDto {
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  alias?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  @MaxLength(300)
+  direccion?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  ciudad?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  @MaxLength(50)
+  telefono?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsUUID()
+  carrierId?: string | null;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsBoolean()
+  predeterminado?: boolean;
 }
