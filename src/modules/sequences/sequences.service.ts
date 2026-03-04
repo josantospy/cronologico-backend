@@ -1,6 +1,6 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { SequenceConfig, ResetPeriod } from './entities/sequence-config.entity';
 
 @Injectable()
@@ -58,9 +58,28 @@ export class SequencesService {
     return `${config.prefijo}${config.separador}${year}${config.separador}${sequenceNum}`;
   }
 
+  async findAllForCompanies(companyIds: string[]): Promise<SequenceConfig[]> {
+    for (const companyId of companyIds) {
+      await this.getOrCreateConfig(companyId);
+    }
+    return this.sequenceRepo.find({
+      where: { companyId: In(companyIds) },
+      relations: ['company'],
+      order: { companyId: 'ASC' },
+    });
+  }
+
   async updateConfig(companyId: string, updateData: Partial<SequenceConfig>): Promise<SequenceConfig> {
     const config = await this.getOrCreateConfig(companyId);
     Object.assign(config, updateData);
-    return this.sequenceRepo.save(config);
+    await this.sequenceRepo.save(config);
+    return this.sequenceRepo.findOne({ where: { companyId }, relations: ['company'] }) as Promise<SequenceConfig>;
+  }
+
+  async resetSequence(companyId: string): Promise<SequenceConfig> {
+    const config = await this.getOrCreateConfig(companyId);
+    config.secuenciaActual = 0;
+    await this.sequenceRepo.save(config);
+    return this.sequenceRepo.findOne({ where: { companyId }, relations: ['company'] }) as Promise<SequenceConfig>;
   }
 }

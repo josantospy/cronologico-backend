@@ -19,12 +19,17 @@ export class ShipmentsController {
   @ApiOperation({ summary: 'Get dashboard statistics' })
   getDashboard(
     @Request() req: { user: { companyIds: string[] } },
-    @Query('dateFrom') dateFrom?: string,
-    @Query('dateTo')   dateTo?: string,
+    @Query('dateFrom')  dateFrom?: string,
+    @Query('dateTo')    dateTo?: string,
+    @Query('companyId') companyId?: string,
   ) {
     const from = dateFrom ? new Date(dateFrom) : undefined;
     const to   = dateTo   ? new Date(dateTo)   : undefined;
-    return this.dashboardService.getStats(req.user.companyIds, from, to);
+    // If a specific company is requested, verify it belongs to the user
+    const ids = companyId && req.user.companyIds.includes(companyId)
+      ? [companyId]
+      : req.user.companyIds;
+    return this.dashboardService.getStats(ids, from, to);
   }
 
   @Post()
