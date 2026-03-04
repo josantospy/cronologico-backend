@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PackageLabel } from './entities/label.entity';
 import { Shipment } from '../../modules/shipments/entities/shipment.entity';
-import { v4 as uuidv4 } from 'uuid';
 
 export interface GenerateLabelDto {
   shipmentId: string;
@@ -32,7 +31,7 @@ export class LabelsService {
   ) {}
 
   private generateBarcode(): string {
-    return `LAB-${uuidv4().substring(0, 8).toUpperCase()}-${Date.now()}`;
+    return `LAB-${crypto.randomUUID().substring(0, 8).toUpperCase()}-${Date.now()}`;
   }
 
   async generateLabels(shipmentId: string, userId: string, dto: GenerateLabelDto): Promise<LabelData[]> {
