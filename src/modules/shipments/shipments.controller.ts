@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request, Query } from '@nestjs/common';
 import { ShipmentsService } from './shipments.service';
 import { DashboardService } from './dashboard.service';
-import { CreateShipmentDto, UpdateShipmentDto, AddShipmentPackerDto } from './dto/shipment.dto';
+import { CreateShipmentDto, UpdateShipmentDto, AddShipmentPackerDto, GenerateConduceDto } from './dto/shipment.dto';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 
@@ -66,8 +66,17 @@ export class ShipmentsController {
     return this.shipmentsService.remove(id);
   }
 
+  @Post('conduce')
+  @ApiOperation({ summary: 'Generate conduce for multiple shipments (assigns sequence + fechaConduce, sets estado to despachado)' })
+  generateConduce(
+    @Request() req: { user: { companyIds: string[] } },
+    @Body() dto: GenerateConduceDto,
+  ) {
+    return this.shipmentsService.generateConduce(dto.ids, req.user.companyIds);
+  }
+
   @Post(':id/complete')
-  @ApiOperation({ summary: 'Mark shipment as completed' })
+  @ApiOperation({ summary: 'Mark shipment as completed (delivered)' })
   @ApiParam({ name: 'id', description: 'Shipment UUID' })
   complete(@Param('id') id: string) {
     return this.shipmentsService.complete(id);

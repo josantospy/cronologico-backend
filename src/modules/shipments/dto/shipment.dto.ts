@@ -89,6 +89,13 @@ export class UpdateShipmentDto {
   packers?: ShipmentPackerDto[];
 }
 
+export class GenerateConduceDto {
+  @ApiProperty({ type: [String], description: 'IDs de los envíos a despachar' })
+  @IsArray()
+  @IsString({ each: true })
+  ids: string[];
+}
+
 export class AddShipmentPackerDto {
   @ApiProperty()
   @IsString()

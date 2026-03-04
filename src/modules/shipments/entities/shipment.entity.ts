@@ -8,6 +8,7 @@ import { ShipmentPacker } from './shipment-packer.entity';
 export enum ShipmentStatus {
   DRAFT = 'borrador',
   IN_PROGRESS = 'en_proceso',
+  DISPATCHED = 'despachado',
   COMPLETED = 'completado',
 }
 
@@ -49,6 +50,9 @@ export class Shipment {
 
   @Column({ name: 'registration_date', type: 'timestamp', nullable: true })
   fechaRegistro: Date;
+
+  @Column({ name: 'conduce_date', type: 'timestamp', nullable: true })
+  fechaConduce: Date | null;
 
   @Column({ name: 'invoice_numbers', type: 'text', nullable: true })
   numerosFactura: string | null;

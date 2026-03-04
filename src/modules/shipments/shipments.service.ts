@@ -134,11 +134,29 @@ export class ShipmentsService {
     return this.findOne(shipmentId);
   }
 
+  async generateConduce(ids: string[], userCompanyIds: string[]): Promise<Shipment[]> {
+    const shipments = await this.shipmentRepo.find({
+      where: { id: In(ids), companyId: In(userCompanyIds) },
+    });
+
+    const now = new Date();
+    for (const shipment of shipments) {
+      if (!shipment.numeroSecuencia) {
+        shipment.numeroSecuencia = await this.sequencesService.generateSequence(shipment.companyId);
+      }
+      shipment.fechaConduce = now;
+      shipment.estado = ShipmentStatus.DISPATCHED;
+      await this.shipmentRepo.save(shipment);
+    }
+
+    return this.shipmentRepo.find({
+      where: { id: In(ids) },
+      relations: ['company', 'client', 'carrier', 'creatorUser', 'packers', 'packers.empacador'],
+    });
+  }
+
   async complete(id: string): Promise<Shipment> {
     const shipment = await this.findOne(id);
-    if (!shipment.numeroSecuencia) {
-      shipment.numeroSecuencia = await this.sequencesService.generateSequence(shipment.companyId);
-    }
     shipment.estado = ShipmentStatus.COMPLETED;
     return this.shipmentRepo.save(shipment);
   }

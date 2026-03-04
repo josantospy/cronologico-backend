@@ -18,6 +18,7 @@ export interface DashboardStats {
   totalPackages: number;
   packagesToday: number;
   pendingShipments: number;
+  dispatchedShipments: number;
   completedShipments: number;
   fragileShipments: number;
   shipmentsByStatus: { status: string; count: number }[];
@@ -73,12 +74,14 @@ export class DashboardService {
       shipmentsThisWeek: weekShipments.length,
       totalPackages,
       packagesToday,
-      pendingShipments:   allShipments.filter(s => s.estado !== ShipmentStatus.COMPLETED).length,
-      completedShipments: allShipments.filter(s => s.estado === ShipmentStatus.COMPLETED).length,
-      fragileShipments:   allShipments.filter(s => s.fragil).length,
+      pendingShipments:    allShipments.filter(s => s.estado === ShipmentStatus.DRAFT || s.estado === ShipmentStatus.IN_PROGRESS).length,
+      dispatchedShipments: allShipments.filter(s => s.estado === ShipmentStatus.DISPATCHED).length,
+      completedShipments:  allShipments.filter(s => s.estado === ShipmentStatus.COMPLETED).length,
+      fragileShipments:    allShipments.filter(s => s.fragil).length,
       shipmentsByStatus: [
         { status: 'borrador',   count: allShipments.filter(s => s.estado === ShipmentStatus.DRAFT).length },
         { status: 'en_proceso', count: allShipments.filter(s => s.estado === ShipmentStatus.IN_PROGRESS).length },
+        { status: 'despachado', count: allShipments.filter(s => s.estado === ShipmentStatus.DISPATCHED).length },
         { status: 'completado', count: allShipments.filter(s => s.estado === ShipmentStatus.COMPLETED).length },
       ],
       shipmentsByMonth: this.monthlyStats(allShipments),
