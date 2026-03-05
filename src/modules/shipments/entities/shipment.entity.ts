@@ -59,7 +59,7 @@ export class Shipment {
   @Column({ name: 'total_packages', default: 0 })
   cantidadPaquetesTotal: number;
 
-  @Column({ type: 'enum', enum: ShipmentStatus, default: ShipmentStatus.DRAFT })
+  @Column({ type: 'enum', enum: ShipmentStatus, default: ShipmentStatus.IN_PROGRESS })
   estado: ShipmentStatus;
 
   @Column({ name: 'general_comments', type: 'text', nullable: true })
