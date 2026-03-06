@@ -19,6 +19,8 @@ import { Shipment } from './modules/shipments/entities/shipment.entity';
 import { ShipmentPacker } from './modules/shipments/entities/shipment-packer.entity';
 import { PackageLabel } from './modules/labels/entities/label.entity';
 import { SequenceConfig } from './modules/sequences/entities/sequence-config.entity';
+import { RolePermissionsModule } from './modules/role-permissions/role-permissions.module';
+import { RolePermission } from './modules/role-permissions/entities/role-permission.entity';
 
 @Module({
   imports: [
@@ -46,6 +48,7 @@ import { SequenceConfig } from './modules/sequences/entities/sequence-config.ent
           ShipmentPacker,
           PackageLabel,
           SequenceConfig,
+          RolePermission,
         ],
         synchronize: true,
         logging: false,
@@ -59,6 +62,7 @@ import { SequenceConfig } from './modules/sequences/entities/sequence-config.ent
     ShipmentsModule,
     LabelsModule,
     SequencesModule,
+    RolePermissionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
